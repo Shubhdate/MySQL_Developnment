@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYSQL DEVELOPNMENT</title>
+</head>
+<body>
+    data- facts related to objects <br><br>
+    database - systematic collection,manipulation,changing of data <br><br>
+
+    MYSQL server - used for database management system(DBMS) <br><br>
+
+    SQL - used for storing , manipulating and retrieveing data in database <br><br>
+
+    table - data tables and has unique primary key <br><br>
+
+    relationship - relation btn two database, also linking and one database reference to another one <br><br>
+
+    foreign key - used to link two tables <br><br>
+
+    DOWNLOAD mysql server and mysql workbench <br><br>
+
+    <hr>
+
+    connect and create a database <br>
+    eg. CREATE DATABASE school_db <br><br>
+
+    /**/ - used for commenting in database <br><br>
+
+    -- this is also used for commenting text <br><br>
+
+    Drop or Remove Database - to remove daytabase permantely <br>
+    eg - drop database school_db1; <br><br>
+
+    <hr>
+
+    Create Database Table - tables in sql script <br>
+    we can also used script to create table <br>
+    <!--
+    /*used for making table*/
+    use school_db;
+
+    create table Students (
+        id int auto_increment primary key, /*for number of records we have to add in table */
+        last_name nvarchar(100) not null, /* not null will used to not place empty that means we have to fill*/
+        first_name nvarchar(100) not null,
+        date_of_birth date not null,
+        enrollment_date date not null
+    );
+
+    create table Courses (
+        course_id int auto_increment primary key,
+        title nvarchar(100) not null,
+        number_of_credits int,
+        course_code nvarchar(5) not null  /*eg cs501 */
+    );
+    -->
+    also we can used sql workbench to create table - by selecting create table option<br><br>
+
+<hr>
+
+    Insert data into Table with Script - placing data into table <br>
+    <!--
+    /*insering data into table*/
+    insert into students (last_name, first_name, date_of_birth, enrollment_date) 
+    values 
+    ('date','shubham','2003-09-20','2022-08-20'); -- if we dont want just type null in that place
+
+    /*for multiple inserts*/
+
+    insert into students (last_name, first_name, date_of_birth, enrollment_date) 
+    values 
+    ('date','pandurang','2003-09-12', '2022-08-20'),
+    ('date','avantika','2003-09-21', '2022-08-1'),
+    ('date','archana','2003-09-30', '2022-08-12'),
+    ('date','king','2003-09-30', '2022-08-21'),
+    ('date','emperor','2003-09-11', '2022-08-13');
+    -->
+
+    we can also insert record with the help of workbench software <br><br>
+
+    <hr>
+
+    Select Data from the table with SQL script - not completed <br><br> 
+    <!--
+    /* selecting a data from table 
+    use school_db;
+    select * from students; -- to get all data at once
+    */
+
+    /*
+    -- for selecting specific column
+    use school_db;
+    select last_name, first_name, date_of_birth from students; -- this will only show required rows we need
+    */
+
+    /*
+    -- to rename class
+    use school_db;
+    select last_name as 'Last name',
+    first_name as 'First name',
+    date_of_birth as 'DOB'
+    from students;
+    */
+    -->
+
+<hr>
+
+    SELECT Data with filters - <br><br>
+    <!--
+    SELECT * FROM school_db.students;
+
+    -- now tp retrive only students with firstname shubham
+    select * from school_db.students
+    where first_name = "shubham" ;
+
+    -- just reqiured column and its shubham name data
+    select first_name, last_name, date_of_birth from school_db.students
+    where first_name = "shubham" ;
+
+    -- just reteive data of last name date 
+    select * from school_db.students
+    where last_name = "date" ;
+
+    -- just to retrevice which has common letters, word or name after
+    select * from school_db.students
+    where first_name like '%hu%' ;
+
+    -- retreve only full name by joining two columns of students and making new column and their enrollment date 
+    select concat(first_name, ' ' , last_name) as "Full Name" , enrollment_date from school_db.students;
+
+    -- selecting courses with the number of credits greater than 2
+    -- hint credits_col > 2
+    SELECT * FROM school_db.courses
+    where number_of_credits > 2;
+
+    -- selecting courses with the number of credits 2 and less than it
+    -- hint credits_col <= 2
+    select * from school_db.courses
+    where number_of_credits <= 2;
+    -->
+
+<hr>
+
+    UPDATE Data in the table directly or by script method <br><br>
+    <!--
+    use school_db;
+    update students set 
+    first_name = "king", 
+    last_name = "king2"
+    where id <= 3 ;
+    -->
+
+    <hr>
+
+    DELETE Data from the table <br><br>
+    <!--
+    /*
+    -- Deleting a data from table 
+    -- where is used for findfing loaction of data
+    use school_db;
+    delete from students 
+    where  id in (1,2,3); -- used for deleting number of data rows
+    */
+    -->
+
+    <hr>
+
+    REVERSE Engineer Database into model <br>
+    creating EER model from database or from script <br>
+    used for database designing for best understanding <br><br>
+
+    FORWARD Engineer Data MOdel into Database <br>
+    making model first and then database <br>
+    Amazon_clone: this is the output which we get from deginging a data and this is its 
+    <!--
+    <script>
+        -- MySQL Workbench Forward Engineering
+
+        SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+        SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+        SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+        
+        -- -----------------------------------------------------
+        -- Schema Amazon_clone
+        -- -----------------------------------------------------
+        
+        -- -----------------------------------------------------
+        -- Schema Amazon_clone
+        -- -----------------------------------------------------
+        CREATE SCHEMA IF NOT EXISTS `Amazon_clone` DEFAULT CHARACTER SET utf8 ;
+        USE `Amazon_clone` ;
+        
+        -- -----------------------------------------------------
+        -- Table `Amazon_clone`.`Customers`
+        -- -----------------------------------------------------
+        CREATE TABLE IF NOT EXISTS `Amazon_clone`.`Customers` (
+          `id` INT NOT NULL,
+          `email` VARCHAR(45) NULL,
+          `Full name` VARCHAR(45) NULL,
+          `contact number` VARCHAR(45) NULL,
+          PRIMARY KEY (`id`))
+        ENGINE = InnoDB;
+        
+        
+        -- -----------------------------------------------------
+        -- Table `Amazon_clone`.`Orders`
+        -- -----------------------------------------------------
+        CREATE TABLE IF NOT EXISTS `Amazon_clone`.`Orders` (
+          `id` INT NOT NULL,
+          `order_number` VARCHAR(45) NULL,
+          `date and time` DATETIME NULL,
+          `customer_id` VARCHAR(45) NULL,
+          PRIMARY KEY (`id`))
+        ENGINE = InnoDB;
+        
+        
+        SET SQL_MODE=@OLD_SQL_MODE;
+        SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+        SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+    </script>
+    -->
+
+    <hr>
+
+    What is relationships,Foreign keys,normalization <br>
+    foreign keys - storing the value of primnary key from other table <br>
+    relationship - two foreign key in two different table makes a relationship and depend on primary key and we have established a relationship<br>
+    normalization - 
+
+    solid line - idr or foreign key is not optional in table 
+    dotted line - is optional in table <br>
+
+<hr>
+
+    CREATE relationship and Data Modelleing - <br>
+
+    1:1 only line - one and one relationship <br>
+    eg - in school there is one teacher assign to only one student <br>
+    <br>
+    1:n dotted and arrow - one to many relationship contain foreign key<br>
+    eg. one teacher many students or one students namy teachers <br>
+    we dont have to do same data it contains already and it is save <br>
+    <br>
+
+    n:n line and arrow - many to many relationship <br>
+    eg - many teaches and many students dont use it often, it creates error <br> 
+
+<hr>
+
+    CREATE Relationship with workbench table database -  <br>
+    
+    <!--
+    /* create a relationship in workbench table database */
+
+    -- class :
+    -- lecture (ref)
+    -- courses
+    -- room (ref)
+    -- time
+
+    -- enrollement :
+    -- students (ref)
+    -- class (ref)
+
+    -- room:
+    -- id
+    -- name
+
+
+    -- 1) creating class table
+    -- 2) connecting by foreign key
+    -- 3) make enrollement table and connect it with foreign key
+    -- 4) inserting records in table which we have connected with each other with the help of foreign key 
+    -- 5) running queries on realted tables
+
+    -- inner joins 
+    -- this joins the two table with the help of code
+
+    -- challenge is that connect all table in classes in which lecturer full name 
+    -- number of credits, student name time and enrollement date
+    -- do this with inner joint and make it more understanable
+
+    code:
+
+    SELECT * FROM school_db.classes
+    -- coobnecting classes and lecures
+    inner join school_db.lectures on school_db.classes.lecturer_id = school_db.lectures.id_lectures
+
+    /*
+    -- another method to avoid writhing same thing twice
+    SELECT * FROM school_db.classes
+    -- connecting classes and lecures
+    inner join school_db.lectures lect on classes.lecturer_id = lect.id_lectures 
+    */
+
+    -- connecting  classes and lecures and also classes and courses
+    SELECT * FROM school_db.classes
+    inner join school_db.lectures on school_db.classes.lecturer_id = school_db.lectures.id_lectures
+    inner join school_db.courses on school_db.classes.courses_id = school_db.courses.course_id
+
+
+    -- connecting  classes and lecures and also classes and courses and making it mor ubnderstanable
+    SELECT * FROM school_db.classes
+    SELECT
+    concat(lect.id_lecture1, '  ', lect.id_lecture2) as 'lecturer full name name',
+    cour.title as 'course title',
+    cour.number_of_credits as 'number of credits'
+    FROM school_db.classes class
+
+    inner join school_db.lectures lect on class.lecturer_id = lect.id_lectures 
+    inner join school_db.courses cour on class.courses_id = cour.course_id;
+    -->
+
+<hr>
+
+    LEFT,RIGHT and CROSS joins in table <br><br>
+
+    <!--
+    -- left join brings all record in left table that are matching
+    -- the matching record apperars in right table that are matching
+    -- cross select all classes regardless there is match or not
+
+    SELECT * FROM school_db.classes;
+    -- left ineer join table 
+    select * from classes c
+    left join lectures l on c.lecturer_id = l.id_lectures;
+
+    -- right inner join table
+    select * from classes c
+    right join lectures l on c.lecturer_id = l.id_lectures;
+
+    -- cross select all classes regardless there is match or not
+    select * from classes c
+    cross join lectures l;
+    -->
+<hr>
+
+    Grouping data using SQL GROUP BT Clause <br><br>
+
+    <!--
+
+    /* Gouping data using SQL GROUP BT Clause */
+    -- allows us to remove repating data and find same data
+    -- and select distint data only
+
+    SELECT distinct * FROM school_db.lectures;
+    -- the above is for didtinct
+
+    -- for group data
+    SELECT id_lectures  FROM school_db.lectures
+    group by id_lecture1;
+
+
+
+    /*
+    use school_db;
+    SELECT * FROM classes c
+    left join lectures l on l.id_lectures = c.lecturer_id
+    inner join courses cour on cour.course_id = c.courses_id;
+    */
+
+    -- making it more understandable
+    use school_db;
+    SELECT 
+    cour.course_id,
+    cour.title,
+    cour.number_of_credits,
+    cour.course_code
+
+    FROM classes c
+    inner join courses cour on cour.course_id = c.courses_id
+    group by cour.course_id,
+    cour.number_of_credits,
+    cour.course_code,
+    c.id;
+    -->
+
+<hr>
+    SQL Average Aggreate function <br><br>
+
+    <!--
+    /* SQL Average Aggreate function */
+    -- task is that bring back the average grades per course in average form
+    use school_db;
+    SELECT 
+    co.title,
+    avg(enroll.grade)
+    from enrollment enroll
+    inner join classes cl on cl.id = enroll.class_id
+    inner join courses co on co.course_id = cl.courses_id
+    group by co.title;
+    -->
+
+<hr>
+    SQL COUNT Aggregate function <br><br>
+    <!--
+    -- SQL COUNT Aggregate function 
+    -- bringing back the number of students enrolled per class
+    -- enrollement - class - course
+    use school_db;
+    SELECT
+    cour.title,c.time, count( students_id) from enrollment
+    inner join classes c on class_id = c.id
+    inner join courses cour on cour.course_id = c.courses_id
+    group by class_id;
+    -->
+
+<hr>
+
+    SQL MIN and MAX Aggregrate Functions <br><br>
+    <!--
+    -- SQL MIN and MAX Aggregrate Functions
+    -- bringing back the highest and lowest grades for each class 
+    use school_db;
+    select class_id, min(grade), max(grade) grade from enrollment
+    group by class_id;
+    -->
+
+<hr>
+    SQL SUM Aggregrate Functions <br><br>
+    <!--
+    --  SQL SUM Aggregrate Functions
+    -- bringing back the total number of credits that each student is doing 
+    use school_db;
+    select concat(s.last_name, ' ', s.first_name) 'Student name',
+    sum(co.number_of_credits)
+    from enrollment e
+    inner join students s on e.students_id = s.id
+    inner join classes cl on e.class_id = cl.id
+    inner join courses co on cl.courses_id = co.course_id
+    group by s.last_name, s.first_name;
+    -->
+
+<hr>
+    Splitting group using the HAVING clause <br><br>
+    <!--
+    -- Splitting group using the HAVING clause 
+    use school_db;
+    select concat(s.last_name, ' ', s.first_name) 'Student name',
+    sum(co.number_of_credits)
+    from enrollment e
+    inner join students s on e.students_id = s.id
+    inner join classes cl on e.class_id = cl.id
+    inner join courses co on cl.courses_id = co.course_id
+    group by s.last_name, s.first_name
+    having sum(co.number_of_credits) = 3;
+    -->
+
+
+</body>
+</html>
